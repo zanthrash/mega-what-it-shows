@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: zanthrash
 status: proposed
 reviewed: 2026-10-28
-signature: zanthrash
+signature: v1.eyJzdWIiOiI2MTM2IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMjc5MzcsImV4cCI6MTc5MzMxNDMzN30.7uDat1LpEwD7REG26ehTCdfeTcbZIf9_mcF8knBd6Hg
 ---
 
 <script>
