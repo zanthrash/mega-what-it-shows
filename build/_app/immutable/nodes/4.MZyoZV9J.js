@@ -1,0 +1,1 @@
+export{n as component}from"../chunks/a28K-G5-.js";

@@ -1,0 +1,54 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: zanthrash
+status: proposed
+reviewed: 2026-10-28
+signature: zanthrash
+---
+
+<script>
+  import SplitTable from '#lib/kb/SplitTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const repo = 'https://github.com/zanthrash/mega-what-it-shows/issues/';
+  const issues = { parser: repo + '1', hint: repo + '2', 'one-day shift': repo + '3' };
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The desk's own code says
+otherwise. Run over the same reports, it finds more than one problem, and the parser fix covers
+only one of them.
+
+<Callout kind="warn">
+Not one issue. Each problem below has its own ticket. Shipping the parser fix closes the first
+row only.
+</Callout>
+
+## The problems
+
+<SplitTable ticket={4471} {issues} />
+
+- **parser**: the shared parser reads every date month first. Day-first tenants get day and
+  month swapped: 7 April lands on 4 July. App, email, and the booking-v2 form.
+- **hint**: the booking-v3 form prints `MM/DD/YYYY` under its date field. People type month
+  first, the form reads the tenant's way. A bug in the form, not the parser.
+- **one-day shift**: these dates move by one day, they are not swapped ("Lisbon got Tuesday,
+  Toronto got Monday"). A time-zone bug. The desk listed them in `desk-notes.json` but filed
+  them under parser by tenant.
+
+## What the desk table shows
+
+The incident page's own table, unchanged. Its footnote is the one-day shift, counted inside parser.
+
+<CauseTable ticket={4471} />
+
+## Why it was merged
+
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on subject line alone, so nobody
+reads the body. Subjects here say "wrong day" for all three problems. Intake's tag comes from the
+reporter's browser, not the tenant, and it disagrees with the tenant's cause on many reports.
+Place a report by tenant, channel and body, as `causes.ts` already does.
+
+<RenderStamp {signature} />
